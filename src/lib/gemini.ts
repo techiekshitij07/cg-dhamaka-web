@@ -12,7 +12,7 @@ export const generateResponse = async (message: string): Promise<string> => {
   }
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     
     const prompt = `
     You are a helpful AI assistant for a Chhattisgarh cultural website. You should respond in Chhattisgarhi language as much as possible. 
