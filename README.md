@@ -3,6 +3,7 @@
 ## Project info
 
 **URL**: https://lovable.dev/projects/d5340581-d659-46de-b24a-aac22cf9b181
+preview - https://preview--cg-dhamaka-web.lovable.app/
 
 ## How can I edit this code?
 
