@@ -1,6 +1,8 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-let genAI: GoogleGenerativeAI | null = null;
+// Auto-initialize with API key
+const API_KEY = "AIzaSyAFoMbKNhJCNlkg6YuPQfEVLFgfbxwguh0";
+let genAI: GoogleGenerativeAI = new GoogleGenerativeAI(API_KEY);
 
 export const initializeGemini = (apiKey: string) => {
   genAI = new GoogleGenerativeAI(apiKey);
@@ -8,7 +10,7 @@ export const initializeGemini = (apiKey: string) => {
 
 export const generateResponse = async (message: string): Promise<string> => {
   if (!genAI) {
-    throw new Error('Gemini API not initialized. Please provide your API key.');
+    genAI = new GoogleGenerativeAI(API_KEY);
   }
 
   try {
@@ -39,5 +41,5 @@ export const generateResponse = async (message: string): Promise<string> => {
 };
 
 export const isGeminiInitialized = () => {
-  return genAI !== null;
+  return true; // Always initialized with API key
 };

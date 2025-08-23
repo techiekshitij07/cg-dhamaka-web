@@ -1,16 +1,23 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/cg-hero.jpg";
+import mahtariOverlay from "@/assets/mahtari-overlay.jpg";
 
 const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center">
-      {/* Background Image */}
+      {/* Background Image with Mahtari Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
           src={heroImage} 
           alt="छत्तीसगढ़ की संस्कृति" 
           className="w-full h-full object-cover"
         />
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{
+            backgroundImage: `url(${mahtariOverlay})`
+          }}
+        ></div>
         <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent"></div>
       </div>
 
