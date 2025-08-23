@@ -14,7 +14,197 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cg_culture: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          region: string | null
+          title: string
+          type: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          region?: string | null
+          title: string
+          type?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          region?: string | null
+          title?: string
+          type?: string | null
+        }
+        Relationships: []
+      }
+      cg_news: {
+        Row: {
+          category: string | null
+          content: string | null
+          created_at: string
+          id: string
+          published_at: string | null
+          source_url: string | null
+          title: string
+        }
+        Insert: {
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          id?: string
+          published_at?: string | null
+          source_url?: string | null
+          title: string
+        }
+        Update: {
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          id?: string
+          published_at?: string | null
+          source_url?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      cg_weather: {
+        Row: {
+          district_name: string
+          humidity: number | null
+          id: string
+          last_updated: string
+          temperature: number | null
+          weather_condition: string | null
+          wind_speed: number | null
+        }
+        Insert: {
+          district_name: string
+          humidity?: number | null
+          id?: string
+          last_updated?: string
+          temperature?: number | null
+          weather_condition?: string | null
+          wind_speed?: number | null
+        }
+        Update: {
+          district_name?: string
+          humidity?: number | null
+          id?: string
+          last_updated?: string
+          temperature?: number | null
+          weather_condition?: string | null
+          wind_speed?: number | null
+        }
+        Relationships: []
+      }
+      chat_messages: {
+        Row: {
+          audio_url: string | null
+          created_at: string
+          emotion: string | null
+          id: string
+          message_text: string
+          message_type: string
+          response_length: string | null
+          session_id: string
+          user_id: string | null
+        }
+        Insert: {
+          audio_url?: string | null
+          created_at?: string
+          emotion?: string | null
+          id?: string
+          message_text: string
+          message_type: string
+          response_length?: string | null
+          session_id: string
+          user_id?: string | null
+        }
+        Update: {
+          audio_url?: string | null
+          created_at?: string
+          emotion?: string | null
+          id?: string
+          message_text?: string
+          message_type?: string
+          response_length?: string | null
+          session_id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "chat_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_sessions: {
+        Row: {
+          created_at: string
+          id: string
+          language: string | null
+          last_active: string
+          session_name: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          language?: string | null
+          last_active?: string
+          session_name?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          language?: string | null
+          last_active?: string
+          session_name?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          emotion_preference: string | null
+          full_name: string | null
+          id: string
+          preferred_language: string | null
+          updated_at: string
+          user_id: string
+          voice_preference: string | null
+        }
+        Insert: {
+          created_at?: string
+          emotion_preference?: string | null
+          full_name?: string | null
+          id?: string
+          preferred_language?: string | null
+          updated_at?: string
+          user_id: string
+          voice_preference?: string | null
+        }
+        Update: {
+          created_at?: string
+          emotion_preference?: string | null
+          full_name?: string | null
+          id?: string
+          preferred_language?: string | null
+          updated_at?: string
+          user_id?: string
+          voice_preference?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
