@@ -350,7 +350,7 @@ const EnhancedAIAssistant = () => {
                     <SelectContent>
                       <SelectItem value="short">छोटा (1-2 वाक्य)</SelectItem>
                       <SelectItem value="medium">मध्यम (3-5 वाक्य)</SelectItem>
-                      <SelectItem value="long">लंबा (विस्तार से)</SelectItem>
+                      <SelectItem value="long">लंबा (विस्तृत - 10+ वाक्य)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

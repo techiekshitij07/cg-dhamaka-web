@@ -5,7 +5,7 @@ import LanguageSection from "@/components/LanguageSection";
 import CultureSection from "@/components/CultureSection";
 import NewsSection from "@/components/NewsSection";
 import PoetrySection from "@/components/PoetrySection";
-import AIAssistant from "@/components/AIAssistant";
+import EnhancedAIAssistant from "@/components/EnhancedAIAssistant";
 
 const Index = () => {
   return (
@@ -17,7 +17,7 @@ const Index = () => {
       <CultureSection />
       <NewsSection />
       <PoetrySection />
-      <AIAssistant />
+      <EnhancedAIAssistant />
     </div>
   );
 };
