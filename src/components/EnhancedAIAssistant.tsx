@@ -98,9 +98,10 @@ const EnhancedAIAssistant = () => {
     };
 
     setMessages([welcomeMsg]);
-    if (voiceEnabled) {
-      speakText(welcomeMsg.text, emotion);
-    }
+    // Voice features temporarily disabled for Gemini API
+    // if (voiceEnabled) {
+    //   speakText(welcomeMsg.text, emotion);
+    // }
   };
 
   const sendMessage = async (messageText = inputMessage) => {
@@ -141,9 +142,10 @@ const EnhancedAIAssistant = () => {
 
       setMessages(prev => [...prev, aiMessage]);
       
-      if (voiceEnabled) {
-        speakText(aiMessage.text, emotion);
-      }
+      // Voice features temporarily disabled for Gemini API
+      // if (voiceEnabled) {
+      //   speakText(aiMessage.text, emotion);
+      // }
 
     } catch (error) {
       console.error('Message error:', error);
@@ -443,16 +445,6 @@ const EnhancedAIAssistant = () => {
                 className="flex-1"
               />
               
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={isRecording ? stopRecording : startRecording}
-                className={isRecording ? 'bg-red-500 text-white' : ''}
-                disabled={isLoading}
-              >
-                {isRecording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
-              </Button>
-              
               <Button 
                 onClick={() => sendMessage()} 
                 disabled={isLoading || !inputMessage.trim()}
@@ -464,7 +456,7 @@ const EnhancedAIAssistant = () => {
             </div>
             
             <p className="text-xs text-muted-foreground mt-2 text-center">
-              छत्तीसगढ़ के बारे में सवाल पूछव • आवाज से भी पूछ सकत हव
+              छत्तीसगढ़ के बारे में सवाल पूछव • Gemini AI द्वारा संचालित
             </p>
           </div>
         </CardContent>

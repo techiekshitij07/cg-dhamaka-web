@@ -7,7 +7,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const GEMINI_API_KEY = "AIzaSyAFoMbKNhJCNlkg6YuPQfEVLFgfbxwguh0";
+const GEMINI_API_KEY = Deno.env.get('GEMINI_API_KEY');
 
 interface ChatRequest {
   message: string;
