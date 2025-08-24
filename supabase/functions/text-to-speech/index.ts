@@ -13,17 +13,35 @@ interface TTSRequest {
   speed?: number;
 }
 
-const getEmotionalVoiceSettings = (emotion: string, voice: string) => {
+const getEmotionalVoiceSettings = (emotion: string) => {
   const emotionSettings = {
-    friendly: { voice: voice || 'alloy', speed: 1.0 },
-    enthusiastic: { voice: 'shimmer', speed: 1.1 },
-    calm: { voice: 'nova', speed: 0.9 },
-    playful: { voice: 'echo', speed: 1.1 },
-    wise: { voice: 'fable', speed: 0.9 },
-    caring: { voice: 'alloy', speed: 0.95 }
+    friendly: { voice: 'Aria', model: 'eleven_multilingual_v2' },
+    enthusiastic: { voice: 'Charlie', model: 'eleven_multilingual_v2' },
+    calm: { voice: 'Sarah', model: 'eleven_multilingual_v2' },
+    playful: { voice: 'River', model: 'eleven_multilingual_v2' },
+    wise: { voice: 'George', model: 'eleven_multilingual_v2' },
+    caring: { voice: 'Laura', model: 'eleven_multilingual_v2' },
+    excited: { voice: 'Liam', model: 'eleven_multilingual_v2' },
+    professional: { voice: 'Brian', model: 'eleven_multilingual_v2' },
+    gentle: { voice: 'Alice', model: 'eleven_multilingual_v2' },
+    authoritative: { voice: 'Daniel', model: 'eleven_multilingual_v2' }
   };
 
   return emotionSettings[emotion] || emotionSettings.friendly;
+};
+
+const voiceIdMap = {
+  'Aria': '9BWtsMINqrJLrRacOk9x',
+  'Roger': 'CwhRBWXzGAHq8TQ4Fs17',
+  'Sarah': 'EXAVITQu4vr4xnSDxMaL',
+  'Laura': 'FGY2WhTYpPnrIDTdsKH5',
+  'Charlie': 'IKne3meq5aSn9XLyUdCD',
+  'George': 'JBFqnCBsd6RMkjVDRZzb',
+  'River': 'SAz9YHcvj6GT2YYXdXww',
+  'Liam': 'TX3LPaxmHKxFdv7VOQHJ',
+  'Alice': 'Xb7hH8MSUJpSbSDYk0k2',
+  'Brian': 'nPczCjzI2devNBz1zQrb',
+  'Daniel': 'onwK4e9ZLuTAKqWW03F9'
 };
 
 serve(async (req) => {
@@ -32,37 +50,42 @@ serve(async (req) => {
   }
 
   try {
-    const { text, voice = 'alloy', emotion = 'friendly', speed = 1.0 }: TTSRequest = await req.json();
+    const { text, emotion = 'friendly' }: TTSRequest = await req.json();
 
     if (!text) {
       throw new Error('Text is required for TTS');
     }
 
-    const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
-    if (!OPENAI_API_KEY) {
-      throw new Error('OpenAI API key not configured');
+    const ELEVENLABS_API_KEY = Deno.env.get('ELEVENLABS_API_KEY');
+    if (!ELEVENLABS_API_KEY) {
+      throw new Error('ElevenLabs API key not configured');
     }
 
-    const voiceSettings = getEmotionalVoiceSettings(emotion, voice);
+    const voiceSettings = getEmotionalVoiceSettings(emotion);
+    const voiceId = voiceIdMap[voiceSettings.voice];
 
-    const response = await fetch('https://api.openai.com/v1/audio/speech', {
+    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${OPENAI_API_KEY}`,
+        'Accept': 'audio/mpeg',
         'Content-Type': 'application/json',
+        'xi-api-key': ELEVENLABS_API_KEY,
       },
       body: JSON.stringify({
-        model: 'tts-1-hd',
-        input: text,
-        voice: voiceSettings.voice,
-        speed: speed || voiceSettings.speed,
-        response_format: 'mp3',
+        text: text,
+        model_id: voiceSettings.model,
+        voice_settings: {
+          stability: 0.5,
+          similarity_boost: 0.8,
+          style: 0.0,
+          use_speaker_boost: true
+        }
       }),
     });
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(`OpenAI TTS API error: ${error}`);
+      throw new Error(`ElevenLabs TTS API error: ${error}`);
     }
 
     const audioBuffer = await response.arrayBuffer();

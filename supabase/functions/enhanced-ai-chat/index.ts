@@ -24,13 +24,17 @@ const getEmotionalPrompt = (emotion: string, responseLength: string) => {
     calm: "शांत अउ धैर्यवान तरीका से",
     playful: "मजेदार अउ हंसी-मजाक के साथ",
     wise: "ज्ञानी अउ समझदार तरीका से",
-    caring: "प्रेम अउ देखभाल के साथ"
+    caring: "प्रेम अउ देखभाल के साथ",
+    excited: "रोमांचित अउ खुशी से भरपूर",
+    professional: "व्यावसायिक अउ औपचारिक तरीका से",
+    gentle: "कोमल अउ धीमी आवाज में",
+    authoritative: "अधिकारिक अउ विश्वसनीय तरीका से"
   };
 
   const lengths = {
     short: "एकदम छोटा जवाब (1-2 वाक्य)",
     medium: "मध्यम जवाब (3-5 वाक्य)",
-    long: "विस्तार से जवाब (6+ वाक्य)"
+    long: "विस्तार से जवाब (10+ वाक्य में पूरी जानकारी)"
   };
 
   return `तुम एक छत्तीसगढ़ी AI सहायक हो जो ${emotions[emotion] || emotions.friendly} जवाब देता है। 

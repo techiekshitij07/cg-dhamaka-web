@@ -27,7 +27,11 @@ const emotions = {
   calm: { icon: Shield, color: 'text-blue-500', label: 'शांत' },
   playful: { icon: Star, color: 'text-purple-500', label: 'मजेदार' },
   wise: { icon: Brain, color: 'text-indigo-500', label: 'ज्ञानी' },
-  caring: { icon: Heart, color: 'text-red-500', label: 'प्रेमी' }
+  caring: { icon: Heart, color: 'text-red-500', label: 'प्रेमी' },
+  excited: { icon: Zap, color: 'text-orange-500', label: 'रोमांचित' },
+  professional: { icon: Shield, color: 'text-gray-600', label: 'व्यावसायिक' },
+  gentle: { icon: Heart, color: 'text-pink-400', label: 'कोमल' },
+  authoritative: { icon: Brain, color: 'text-slate-700', label: 'अधिकारिक' }
 };
 
 const EnhancedAIAssistant = () => {
@@ -86,7 +90,11 @@ const EnhancedAIAssistant = () => {
       calm: 'नमस्कार मित्र। मैं यहाँ छत्तीसगढ़ की जानकारी देने खातिर हावं। आराम से पूछव।',
       playful: 'अरे भाई! कइसे हव? मैं तुम्हार मजेदार छत्तीसगढ़ी दोस्त हावं!',
       wise: 'प्रणाम। मैं छत्तीसगढ़ के ज्ञान का भंडार हावं। जो जानना चाहव, पूछव।',
-      caring: 'बेटा, कैसे हव? मैं यहाँ तुम्हार मदद करे खातिर हावं। का चाही तुम्ला?'
+      caring: 'बेटा, कैसे हव? मैं यहाँ तुम्हार मदद करे खातिर हावं। का चाही तुम्ला?',
+      excited: 'वाह भाई! एकदम खुशी होइस तुम्ला मिल के! मैं छत्तीसगढ़ के बारे में बताने के लिए तैयार हावं!',
+      professional: 'सादर नमस्कार। मैं छत्तीसगढ़ की संपूर्ण जानकारी प्रदान करने वाला AI सहायक हूँ।',
+      gentle: 'नमस्कार प्रिय मित्र। मैं आपकी सेवा में हावं। धीरे-धीरे सब कुछ समझाऊंगा।',
+      authoritative: 'छत्तीसगढ़ की आधिकारिक जानकारी के लिए मैं यहाँ हावं। विश्वसनीय तथ्य मिलेगा।'
     };
 
     const welcomeMsg: Message = {
@@ -98,10 +106,9 @@ const EnhancedAIAssistant = () => {
     };
 
     setMessages([welcomeMsg]);
-    // Voice features temporarily disabled for Gemini API
-    // if (voiceEnabled) {
-    //   speakText(welcomeMsg.text, emotion);
-    // }
+    if (voiceEnabled) {
+      speakText(welcomeMsg.text, emotion);
+    }
   };
 
   const sendMessage = async (messageText = inputMessage) => {
@@ -142,10 +149,9 @@ const EnhancedAIAssistant = () => {
 
       setMessages(prev => [...prev, aiMessage]);
       
-      // Voice features temporarily disabled for Gemini API
-      // if (voiceEnabled) {
-      //   speakText(aiMessage.text, emotion);
-      // }
+      if (voiceEnabled) {
+        speakText(aiMessage.text, emotion);
+      }
 
     } catch (error) {
       console.error('Message error:', error);
@@ -445,6 +451,16 @@ const EnhancedAIAssistant = () => {
                 className="flex-1"
               />
               
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={isRecording ? stopRecording : startRecording}
+                className={isRecording ? 'bg-red-500 text-white' : ''}
+                disabled={isLoading}
+              >
+                {isRecording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+              </Button>
+              
               <Button 
                 onClick={() => sendMessage()} 
                 disabled={isLoading || !inputMessage.trim()}
@@ -456,7 +472,7 @@ const EnhancedAIAssistant = () => {
             </div>
             
             <p className="text-xs text-muted-foreground mt-2 text-center">
-              छत्तीसगढ़ के बारे में सवाल पूछव • Gemini AI द्वारा संचालित
+              छत्तीसगढ़ के बारे में सवाल पूछव • आवाज से भी पूछ सकत हव • ElevenLabs TTS
             </p>
           </div>
         </CardContent>
