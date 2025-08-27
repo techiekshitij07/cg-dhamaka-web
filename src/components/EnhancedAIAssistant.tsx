@@ -47,7 +47,8 @@ const EnhancedAIAssistant = () => {
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
-  
+  const [ttsText, setTtsText] = useState('');
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
@@ -365,6 +366,32 @@ const EnhancedAIAssistant = () => {
                   >
                     {voiceEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
                   </Button>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium">Text to Speech (पाठ को आवाज में)</label>
+                  <div className="flex gap-2 mt-2">
+                    <Input
+                      placeholder="यहाँ टेक्स्ट लिखें जिसे बोलना है"
+                      value={ttsText}
+                      onChange={(e) => setTtsText(e.target.value)}
+                      className="flex-1"
+                    />
+                    <Button
+                      size="sm"
+                      className="bg-gradient-hero"
+                      onClick={() => {
+                        if (ttsText.trim()) {
+                          speakText(ttsText, emotion);
+                        }
+                      }}
+                    >
+                      बोलो
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    चुनी हुई भावना के साथ आवाज में सुनें
+                  </p>
                 </div>
               </div>
             </div>
